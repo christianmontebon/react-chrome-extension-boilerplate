@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "My ReactJS Chrome Extension",
+  "description": "My ReactJS Chrome Extension",
+  "version": "1.0.0",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "action": {
+    "default_title": "popup",
+    "default_popup": "popup.html"
+  }
+}
