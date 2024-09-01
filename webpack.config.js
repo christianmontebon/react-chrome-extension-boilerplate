@@ -3,6 +3,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const tailwindcss = require('tailwindcss');
 const autoprefixer = require('autoprefixer');
+const { get } = require('http');
 
 
 module.exports = {
@@ -10,6 +11,7 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   entry: {
     popup: path.resolve('src/popup/popup.tsx'),
+    options: path.resolve('src/options/options.tsx'),
   },
   module: {
     rules: [
@@ -29,6 +31,11 @@ module.exports = {
           }
         }],
         test: /\.css$/,
+      },
+      {
+        type: 'assets/resource',
+        use: 'asset/resource',
+        test: /\.(png|jpg|jpeg|gif|svg)$/
       }
     ]
   },
@@ -41,16 +48,25 @@ module.exports = {
         },
       ],
     }),
-    new HtmlPlugin({
-      title: 'React Chrome Extension',
-      filename: 'popup.html',
-      chunks: ['popup']
-    })
+    ...getHtmlPlugins(['popup', 'options']),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
   },
   output: {
     filename: '[name].js',
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    }
   }
+};
+
+function getHtmlPlugins(chunks) {
+  return chunks.map(chunk => new HtmlPlugin({
+    title: 'React Chrome Extension',
+    filename: `${chunk}.html`,
+    chunks: [chunk]
+  }));
 }
