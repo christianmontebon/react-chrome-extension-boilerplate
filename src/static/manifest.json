@@ -29,5 +29,8 @@
         "contentScript.js"
       ]
     }
-  ]
+  ],
+  "chrome_url_overrides": {
+        "newtab": "newTab.html"
+  }
 }
