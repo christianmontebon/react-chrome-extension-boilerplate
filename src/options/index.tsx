@@ -1,4 +1,4 @@
 import { initComponent } from '../utils/initComponent'
-import Tabs from "./tabs";
+import Options from "./options";
 
-initComponent(Tabs);
+initComponent(Options);
